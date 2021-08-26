@@ -38,7 +38,10 @@ task :sync => :environment do
       if response.data
         if response.data.pull_requests
           for i in 1..response.data.pull_requests.length() do
-            @pull_request = PullRequest.new(response.data.pull_requests[i])
+            id = response.data.pull_requests[i].split('/')[-1]
+            @pull_request = PullRequest.new(response.data.pull_requests[i].merge{
+              id: id,
+            })
           end
         end
       end

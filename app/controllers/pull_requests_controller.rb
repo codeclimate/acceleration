@@ -2,11 +2,15 @@ class PullRequestsController < ApplicationController
   def index
     :authenticate_user!
 
-    @pull_requests = PullRequests.all.includes(:user)
+    @pull_requests = PullRequests
 
     @pull_requests = @pull_requests.tagged_with(params[:tag]) if params[:tag].present?
 
     @pull_requests = @pull_requests.order(created_at: :desc).offset(params[:offset] || 0).limit(params[:limit] || 20)
+
+    # We only want
+
+
 
     render :index
   end
